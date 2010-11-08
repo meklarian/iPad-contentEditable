@@ -29,6 +29,7 @@ h1,h2,h3,h4,h5,h6 {font-size: 100%;}
 <div id="editor"><textarea id="cursor"></textarea></div>
 <script>
 (function ($){
+$('#cursor').attr('autocomplete', 'off');
 $('#editor').bind('click', function(){$('#cursor').focus();});
 $('#cursor').bind('keyup', function(event){
 var keyCode = event.keyCode || '';
