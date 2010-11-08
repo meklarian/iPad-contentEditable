@@ -4,9 +4,11 @@ var g_italic = false;
 var g_underline = false;
 
 (function ($){
+var refocus = function(){$('#cursor').focus();}
+
 $('#cursor').attr('autocomplete', 'off');
-$('#editor').bind('click', function(){$('#cursor').focus();});
-$('#virtualCursor').bind('click', function(){$('#cursor').focus();});
+$('#editor').bind('click', refocus);
+$('#virtualCursor').bind('click', refocus);
 
 var getStyleText = function(){
 var innerStyleText = '';
@@ -113,9 +115,9 @@ event.stopPropagation();
 }
 return false;});
 
-$('#bold').bind('click', function(){g_bold = $('#bold').attr('checked');$('#cursor').focus();});
-$('#italic').bind('click', function(){g_italic = $('#italic').attr('checked');$('#cursor').focus();});
-$('#underline').bind('click', function(){g_underline = $('#underline').attr('checked');$('#cursor').focus();});
+$('#bold').bind('click', function(){g_bold = $('#bold').attr('checked');window.setTimeout(refocus, 0);});
+$('#italic').bind('click', function(){g_italic = $('#italic').attr('checked');window.setTimeout(refocus, 0);});
+$('#underline').bind('click', function(){g_underline = $('#underline').attr('checked');window.setTimeout(refocus, 0);});
 
 $('#cursor').focus();
 })(window.jQuery);
