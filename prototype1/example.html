@@ -30,7 +30,7 @@ h1,h2,h3,h4,h5,h6 {font-size: 100%;}
 <div class="dbgItem">cursor.text(): <span id="keypress_cursorText"></span><br />(should be empty)</div>
 </div>
 <br clear="all" />
-<div id="editor"><div id="displayCursor">&8203;</div></div>
+<div id="editor"><div id="displayCursor">&#8202;</div></div>
 <textarea id="cursor"></textarea>
 <script>
 var g_lastKey = 0;
@@ -47,11 +47,34 @@ $('#keyup_theKeyCode').text(keyCode);
 $('#keyup_theWhich').text(keyWhich);
 $('#keyup_cursorText').text($('#cursor').text());
 var keyValue = event.keyCode || event.which;
+var text = null;
+var textpoint = null;
 if(keyValue >= 32)
 {
 }
 else
 {
+switch(keyValue)
+{
+// NOTE: Backspace must be handled here. Only FF handles it in keypress event. - PS - 2010-11-07
+case 8:
+{
+var backelement = $('#displayCursor').prev();
+if(backelement.length == 1)
+{
+backelement.remove();
+textpoint = '';
+}
+}
+break;
+}
+if(textpoint !== null)
+{
+if(textpoint.length > 0){$(textpoint).insertBefore('#displayCursor');}
+g_lastKey = keyValue;
+event.preventDefault();
+event.stopPropagation();
+}
 }
 event.preventDefault();
 event.stopPropagation();
@@ -66,7 +89,6 @@ $('#keypress_cursorText').text($('#cursor').text());
 var keyValue = event.keyCode || event.which;
 var text = null;
 var textpoint = null;
-var backtext = null;
 if(keyValue >= 32)
 {
 text = String.fromCharCode(keyValue);
@@ -86,15 +108,6 @@ break;
 case 10:
 // TODO: This doesn't work on the iPod touch, for some reason. Don't know why. - PS - 2010-11-07
 if(g_lastkey !== 13){textpoint = '<br />';}
-break;
-case 8:
-{
-var backelement = $('#displayCursor').prev();
-if(backelement.length == 1)
-{
-backelement.remove();
-}
-}
 break;
 }
 if(textpoint !== null)
