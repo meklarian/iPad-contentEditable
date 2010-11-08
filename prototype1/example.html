@@ -1,9 +1,75 @@
+<!doctype html>
 <html>
-<head><title>iPad-contentEditable hack</title></head>
+<head>
+<title>iPad-contentEditable hack</title>
+<script src="jQuery-1.4.3.js"></script>
+<style>
+body {background-color: #999999;}
+#editor {width: 640px; padding: 0px; margin: 0; background-color: white; height: 100%;}
+#cursor {width: 1px; padding: 0; margin: 2px 0px 2px 0px; height: 1.1em; vertical-align: baseline; border: 0px; background-color: black; display: inline;}
+
+h1,h2,h3,h4,h5,h6 {font-size: 100%;}
+.f {float: left;}
+.box {margin: 10px;}
+.debugElement {font-family: monospace;}
+</style>
+</head>
 <body>
-<div id="editor">
-<textarea id="cursor">
-</textarea>
+<div class="f box">
+<h2>keyup</h2>
+<div class="debugElement">event.keyCode: <span id="keyup_theKeyCode"></span></div>
+<div class="debugElement">event.which: <span id="keyup_theWhich"></span></div>
 </div>
+<div class="f box">
+<h2>keypress</h2>
+<div class="debugElement">event.keyCode: <span id="keypress_theKeyCode"></span></div>
+<div class="debugElement">event.which: <span id="keypress_theWhich"></span></div>
+</div>
+<br clear="all" />
+<div id="editor"><textarea id="cursor"></textarea></div>
+<script>
+(function ($){
+$('#editor').bind('click', function(){$('#cursor').focus();});
+$('#cursor').bind('keyup', function(event){
+var keyCode = event.keyCode || '';
+var keyWhich = event.which || '';
+$('#keyup_theKeyCode').text(keyCode);
+$('#keyup_theWhich').text(keyWhich);
+var keyValue = event.keyCode || event.which;
+//alert(keyValue);
+//alert(String.fromCharCode(keyValue));
+//var prevNode = $('#cursor').prev();
+if(keyValue >= 32)
+{
+}
+else
+{
+event.preventDefault();
+}
+});
+
+$('#cursor').bind('keypress', function(event){
+var keyCode = event.keyCode || '';
+var keyWhich = event.which || '';
+$('#keypress_theKeyCode').text(keyCode);
+$('#keypress_theWhich').text(keyWhich);
+var keyValue = event.keyCode || event.which;
+//alert(keyValue);
+//alert(String.fromCharCode(keyValue));
+//var prevNode = $('#cursor').prev();
+if(keyValue >= 32)
+{
+var text = String.fromCharCode(keyValue);
+var textpoint = '<span>' + text + '</span>'
+$(textpoint).insertBefore('#cursor');
+event.preventDefault();
+event.stopPropagation();
+}
+else
+{
+}
+});
+})(window.jQuery);
+</script>
 </body>
 </html>
