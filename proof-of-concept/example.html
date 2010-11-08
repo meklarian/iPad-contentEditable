@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<title>iPad-contentEditable hack</title>
+<script src="jQuery-1.4.3.js"></script>
+<style>
+body {background-color: #999999;}
+#editor {width: 640px; padding: 0px; margin: 0; background-color: white; height: 100%;}
+#cursor {width: 1px; padding: 0; margin: 0px; height: 1px; border: 0px; background-color: white; display: inline; outline: none; left: -4096px; position: relative;}
+#displayCursor {width: 1px; padding: 0; margin: 0; height: 2ex; border: 0px; background-color: black; display: inline; outline: none; overflow: hidden;}
+
+h1,h2,h3,h4,h5,h6 {font-size: 100%;}
+.f {float: left;}
+.box {margin: 10px;}
+.dbgItem {font-family: monospace;}
+</style>
+</head>
+<body>
+<div class="f box">
+<h2>keyup</h2>
+<div class="dbgItem">event.keyCode: <span id="keyup_theKeyCode"></span></div>
+<div class="dbgItem">event.which: <span id="keyup_theWhich"></span></div>
+<div class="dbgItem">cursor.text(): <span id="keyup_cursorText"></span><br />(should be empty)</div>
+</div>
+<div class="f box">
+<h2>keypress</h2>
+<div class="dbgItem">event.keyCode: <span id="keypress_theKeyCode"></span></div>
+<div class="dbgItem">event.which: <span id="keypress_theWhich"></span></div>
+<div class="dbgItem">cursor.text(): <span id="keypress_cursorText"></span><br />(should be empty)</div>
+</div>
+<br clear="all" />
+<!-- begin required elements -->
+<div id="palette"><input type="checkbox" id="bold" /><label for="bold">bold</label>&#160;&#160;&#160;<input type="checkbox" id="italic" /><label for="italic">italic</label>&#160;&#160;&#160;<input type="checkbox" id="underline" /><label for="underline">underline</label></div>
+<br />
+<div id="editor"><div id="displayCursor">&#8202;</div></div>
+<textarea id="cursor"></textarea>
+<script src="editor.js"></script>
+<!-- end required elements -->
+</body>
+</html>
